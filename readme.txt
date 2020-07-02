@@ -3,7 +3,7 @@ Contributors: Themeansar
 Tags: theme demos, demo, importer, one click import
 Requires at least: 4.7
 Tested up to: 5.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -59,3 +59,6 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 = 1.0.0 - 06-18-2020 =
 * Relesed
+
+= 1.0.0 - 07-02-2020 =
+* Fixed Issues
