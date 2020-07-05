@@ -78,7 +78,7 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
 
                         if (in_array($category['id'], $present_cat)) {
                             ?>
-                            <li uk-filter-control="[data-color*='cat_<?php echo $category['id']; ?>']"><a href="#"><?php echo $category['name']; ?></a></li>
+                            <li uk-filter-control="[data-color*='cat_<?php echo $category['id']; ?>']"><a href="#"><?php echo esc_attr($category['name']); ?></a></li>
 
                             <?php
                         }
@@ -101,23 +101,24 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
                             <!-- product -->
                             <div class="uk-card theme" style="width: 100%;" tabindex="0">
                                 <div class="theme-screenshot">
-                                    <img src="<?php echo $demo['preview_url']; ?>" >
+                                    <img src="<?php echo esc_url($demo['preview_url']); ?>" >
                                 </div>
-                                <span class="more-details btn-preview" data-id="<?php echo $demo['id']; ?>" data-toggle="modal" data-target="#AnsardemoPreview">Preview</span>
-                                <div class="theme-author">By Themeansar </div>
+                                <span class="more-details btn-preview" data-id="<?php echo $demo['id']; ?>" data-toggle="modal" data-target="#AnsardemoPreview"><?php esc_html_e('Preview','ansr-import'); ?></span>
+                                <div class="theme-author"><?php esc_html_e('By Themeansar','ansar-import'); ?> </div>
                                 <div class="theme-id-container">
-                                    <h2 class="theme-name" id=""><?php echo $demo['title']['rendered']; ?></h2>
+                                    <h2 class="theme-name" id=""><?php echo esc_attr($demo['title']['rendered']); ?></h2>
                                     <div class="theme-actions">
                                         <?php if ($theme_name != $demo['theme_name']) {
                                             ?>
-                                            <a class="button activate" target="_new" href="<?php echo $demo['pro_link']; ?>" >Buy Now</a>
+                                            <a class="button activate" target="_new" href="<?php echo esc_url($demo['pro_link']); ?>" >
+                                                <?php esc_html_e('Buy Now','ansar-import'); ?></a>
                                         <?php } else {
               
                                             ?>
                                             <a class="button activate live-btn-<?php echo $demo['id']; ?> <?php  if(get_option( 'ansar_demo_installed' )!= $demo['id']){ echo "uk-hidden"; }?> " target="_new" data-id="<?php echo $demo['id']; ?>"  href="<?php echo home_url(); ?>">Live Preview</a>
-                                            <button type="button" class="<?php  if(get_option( 'ansar_demo_installed' )== $demo['id']){ echo "uk-hidden"; }?> button activate btn-import btn-import-<?php echo $demo['id']; ?>" href="#" data-id="<?php echo $demo['id']; ?>">Import</button>
+                                            <button type="button" class="<?php  if(get_option( 'ansar_demo_installed' )== $demo['id']){ echo "uk-hidden"; }?> button activate btn-import btn-import-<?php echo $demo['id']; ?>" href="#" data-id="<?php echo $demo['id']; ?>"><?php esc_html_e('Import','ansar-import'); ?></button>
                                             <?php }  ?>
-                                        <a class="button button-primary load-customize hide-if-no-customize btn-preview" data-id="<?php echo $demo['id']; ?>" data-toggle="modal" data-target="#AnsardemoPreview" href="#">Preview</a>
+                                        <a class="button button-primary load-customize hide-if-no-customize btn-preview" data-id="<?php echo $demo['id']; ?>" data-toggle="modal" data-target="#AnsardemoPreview" href="#"><?php esc_html_e('Preview','ansar-import'); ?></a>
 
                                     </div>
                                 </div>    
@@ -169,8 +170,8 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
                     <span class="theme-by"><?php esc_html_e('By', 'ansar-import'); ?> <?php echo $theme_data->get('Author'); ?> </span>
                     <img class="theme-screenshot" src="/screenshot.jpg" alt="">
                     <div class="theme-details">
-                        <div class="theme-version"><?php echo $theme_data->get('Version'); ?></div>
-                        <div class="theme-description"><?php echo $theme_data->get('Description'); ?></div>
+                        <div class="theme-version"><?php echo esc_attr($theme_data->get('Version')); ?></div>
+                        <div class="theme-description"><?php echo esc_attr($theme_data->get('Description')); ?></div>
                     </div>
                 </div>
             </div>

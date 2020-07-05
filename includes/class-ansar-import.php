@@ -195,15 +195,15 @@ class Ansar_Import {
         $data_file = $upload['basedir'] . '/ansar_import_data/data.xml';
         // File exists?
         if (!file_exists($wiget_file)) {
-            wp_die(esc_html__('Import file could not be found for widget. Please try again.'));
+            wp_die(esc_html__('Import file could not be found for widget. Please try again.','ansar-import'));
         }
         // File exists?
         if (!file_exists($data_file)) {
-            wp_die(esc_html__('Data import file could not be found for data. Please try again.'));
+            wp_die(esc_html__('Data import file could not be found for data. Please try again.','ansar-import'));
         }
         // File exists?
         if (!file_exists($customizer_file)) {
-            wp_die(esc_html__('Customizer file could not be found for data. Please try again.'));
+            wp_die(esc_html__('Customizer file could not be found for data. Please try again.','ansar-import'));
         }
 
         //remove current home page if exsist
@@ -233,7 +233,7 @@ class Ansar_Import {
         $wie_import_results = $ansar_importer->wie_import_data($wiget_file);
         // echo 'Widget import done<br>';
         //echo 'Customizer import started!<br> ';
-        $ansar_importer->import_customizer_settings($customizer_file);
+        $ansar_importer->ans_import_customizer_settings($customizer_file);
         update_option( 'ansar_demo_installed', $theme_id );
     }
 
@@ -348,7 +348,7 @@ class Ansar_Import {
         if (empty($data) || !is_object($data)) {
 
             wp_die(
-                    esc_html__('Import data could not be read. Please try a different file.', 'widget-importer-exporter'), '', array(
+                    esc_html__('Import data could not be read. Please try a different file.', 'ansar-import'), '', array(
                 'back_link' => true,
                     )
             );
@@ -389,7 +389,7 @@ class Ansar_Import {
                 $sidebar_available = false;
                 $use_sidebar_id = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
                 $sidebar_message_type = 'error';
-                $sidebar_message = esc_html__('Widget area does not exist in theme (using Inactive)', 'widget-importer-exporter');
+                $sidebar_message = esc_html__('Widget area does not exist in theme (using Inactive)', 'ansar-import');
             }
 
             // Result for sidebar
@@ -412,7 +412,7 @@ class Ansar_Import {
                 if (!$fail && !isset($available_widgets[$id_base])) {
                     $fail = true;
                     $widget_message_type = 'error';
-                    $widget_message = esc_html__('Site does not support widget', 'widget-importer-exporter'); // Explain why widget not imported.
+                    $widget_message = esc_html__('Site does not support widget', 'ansar-import'); // Explain why widget not imported.
                 }
 
                 // Filter to modify settings object before conversion to array and import
@@ -449,7 +449,7 @@ class Ansar_Import {
                             $widget_message_type = 'warning';
 
                             // Explain why widget not imported.
-                            $widget_message = esc_html__('Widget already exists', 'widget-importer-exporter');
+                            $widget_message = esc_html__('Widget already exists', 'ansar-import');
 
                             break;
                         }
@@ -523,10 +523,10 @@ class Ansar_Import {
                     // Success message.
                     if ($sidebar_available) {
                         $widget_message_type = 'success';
-                        $widget_message = esc_html__('Imported', 'widget-importer-exporter');
+                        $widget_message = esc_html__('Imported', 'ansar-import');
                     } else {
                         $widget_message_type = 'warning';
-                        $widget_message = esc_html__('Imported to Inactive', 'widget-importer-exporter');
+                        $widget_message = esc_html__('Imported to Inactive', 'ansar-import');
                     }
                 }
 
@@ -545,7 +545,7 @@ class Ansar_Import {
         return apply_filters('wie_import_results', $results);
     }
 
-    function import_customizer_settings($custom_file) {
+    function ans_import_customizer_settings($custom_file) {
         // Check to see if the settings have already been imported.
         $template = get_template();
         $imported = get_option($template . '_customizer_import', false);

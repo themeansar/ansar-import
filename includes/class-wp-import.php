@@ -88,8 +88,8 @@ class ANS_WP_Import extends WP_Importer {
      */
     function import_start($file) {
         if (!is_file($file)) {
-            echo '<p><strong>' . __('Sorry, there has been an error.', 'wordpress-importer') . '</strong><br />';
-            echo __('The file does not exist, please try again.', 'wordpress-importer') . '</p>';
+            echo '<p><strong>' . __('Sorry, there has been an error.', 'ansar-import') . '</strong><br />';
+            echo __('The file does not exist, please try again.', 'ansar-import') . '</p>';
             $this->footer();
             die();
         }
@@ -97,7 +97,7 @@ class ANS_WP_Import extends WP_Importer {
         $import_data = $this->parse($file);
 
         if (is_wp_error($import_data)) {
-            echo '<p><strong>' . __('Sorry, there has been an error.', 'wordpress-importer') . '</strong><br />';
+            echo '<p><strong>' . __('Sorry, there has been an error.', 'ansar-import') . '</strong><br />';
             echo esc_html($import_data->get_error_message()) . '</p>';
             $this->footer();
             die();
@@ -132,8 +132,8 @@ class ANS_WP_Import extends WP_Importer {
         wp_defer_term_counting(false);
         wp_defer_comment_counting(false);
 
-        echo '<p>' . __('All done.', 'wordpress-importer') . ' <a href="' . admin_url() . '">' . __('Have fun!', 'wordpress-importer') . '</a>' . '</p>';
-        echo '<p>' . __('Remember to update the passwords and roles of imported users.', 'wordpress-importer') . '</p>';
+        echo '<p>' . __('All done.', 'wordpress-importer') . ' <a href="' . admin_url() . '">' . __('Have fun!', 'ansar-import') . '</a>' . '</p>';
+        echo '<p>' . __('Remember to update the passwords and roles of imported users.', 'ansar-import') . '</p>';
 
         do_action('import_end');
     }
@@ -172,7 +172,7 @@ class ANS_WP_Import extends WP_Importer {
         $this->version = $import_data['version'];
         if ($this->version > $this->max_wxr_version) {
             echo '<div class="error"><p><strong>';
-            printf(__('This WXR file (version %s) may not be supported by this version of the importer. Please consider updating.', 'wordpress-importer'), esc_html($import_data['version']));
+            printf(__('This WXR file (version %s) may not be supported by this version of the importer. Please consider updating.', 'ansar-import'), esc_html($import_data['version']));
             echo '</strong></p></div>';
         }
 
@@ -197,7 +197,7 @@ class ANS_WP_Import extends WP_Importer {
             foreach ($import_data['posts'] as $post) {
                 $login = sanitize_user($post['post_author'], true);
                 if (empty($login)) {
-                    printf(__('Failed to import author %s. Their posts will be attributed to the current user.', 'wordpress-importer'), esc_html($post['post_author']));
+                    printf(__('Failed to import author %s. Their posts will be attributed to the current user.', 'ansar-import'), esc_html($post['post_author']));
                     echo '<br />';
                     continue;
                 }
