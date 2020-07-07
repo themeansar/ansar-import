@@ -32,7 +32,7 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
 
     <!-- This file should primarily consist of HTML with a little bit of PHP. -->
     <?php
-    $cat_data = wp_remote_get('https://demos.themeansar.com/wp-json/wp/v2/categories');
+    $cat_data = wp_remote_get(esc_url_raw('https://demos.themeansar.com/wp-json/wp/v2/categories'));
     $cat_data_body = wp_remote_retrieve_body($cat_data);
     $all_categories = json_decode($cat_data_body, TRUE);
 
@@ -42,7 +42,7 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
     $theme_name = $theme_data->get('Name');
     $theme_slug = $theme_data->get('TextDomain');
 
-    $theme_data_api = wp_remote_get("https://demos.themeansar.com/wp-json/wp/v2/demos/?orderby=menu_order&order=asc&search=%27" . urlencode($theme_name) . "%27");
+    $theme_data_api = wp_remote_get(esc_url_raw("https://demos.themeansar.com/wp-json/wp/v2/demos/?orderby=menu_order&order=asc&search=%27" . urlencode($theme_name) . "%27"));
     $theme_data_api_body = wp_remote_retrieve_body($theme_data_api);
     $all_demos = json_decode($theme_data_api_body, TRUE);
 
@@ -78,7 +78,7 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
 
                         if (in_array($category['id'], $present_cat)) {
                             ?>
-                            <li uk-filter-control="[data-color*='cat_<?php echo $category['id']; ?>']"><a href="#"><?php echo esc_attr($category['name']); ?></a></li>
+                            <li uk-filter-control="[data-color*='cat_<?php echo esc_html($category['id']); ?>']"><a href="#"><?php echo esc_attr($category['name']); ?></a></li>
 
                             <?php
                         }
@@ -103,7 +103,7 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
                                 <div class="theme-screenshot">
                                     <img src="<?php echo esc_url($demo['preview_url']); ?>" >
                                 </div>
-                                <span class="more-details btn-preview" data-id="<?php echo $demo['id']; ?>" data-toggle="modal" data-target="#AnsardemoPreview"><?php esc_html_e('Preview','ansr-import'); ?></span>
+                                <span class="more-details btn-preview" data-id="<?php echo $demo['id']; ?>" data-live="<?php  if(get_option( 'ansar_demo_installed' )== $demo['id']){ echo 1; }?>" data-toggle="modal" data-target="#AnsardemoPreview"><?php esc_html_e('Preview','ansr-import'); ?></span>
                                 <div class="theme-author"><?php esc_html_e('By Themeansar','ansar-import'); ?> </div>
                                 <div class="theme-id-container">
                                     <h2 class="theme-name" id=""><?php echo esc_attr($demo['title']['rendered']); ?></h2>
@@ -154,24 +154,22 @@ if ($tehme_data->get('Author') != 'themeansar' && $tehme_data->get('Author') != 
     <!-- main include -->   
     <div class="theme-install-overlay wp-full-overlay expanded iframe-ready" style="display: block;">
         <div class="wp-full-overlay-sidebar">
+            
             <div class="wp-full-overlay-header">
                 <button class="close-full-overlay"><span class="screen-reader-text"><?php esc_html_e('Close', 'ansar-import'); ?></span></button>
-<!--            <button class="previous-theme disabled" disabled=""><span class="screen-reader-text">Previous</span></button>
-                <button class="next-theme"><span class="screen-reader-text">Next</span></button>-->
-
+                <a class="button activate preview-live-btn uk-hidden" target="_new"  href="<?php echo home_url(); ?>"> <?php esc_html_e('Live Preview','ansar-import'); ?></a>
                 <button type="button" class="button button-primary import-priview activate btn-import" href="#" data-id="0"><?php esc_html_e('Import', 'ansar-import'); ?></button>
                 <a class="button activate preview-buy uk-hidden" target="_new" href="#" ><?php esc_html_e('Buy Now', 'ansar-import'); ?></a>
-
-
             </div>
+
             <div class="wp-full-overlay-sidebar-content">
                 <div class="install-theme-info">
-                    <h3 class="theme-name"> <?php echo $theme_data->get('Name'); ?> </h3>
-                    <span class="theme-by"><?php esc_html_e('By', 'ansar-import'); ?> <?php echo $theme_data->get('Author'); ?> </span>
-                    <img class="theme-screenshot" src="/screenshot.jpg" alt="">
+                    <h3 class="theme-name"> <?php echo esc_html_e($theme_data->get('Name')); ?> </h3>
+                    <span class="theme-by"><?php esc_html_e('By', 'ansar-import'); ?> <?php echo esc_attr($theme_data->get('Author')); ?> </span>
+                    <img class="theme-screenshot" src="" alt="">
                     <div class="theme-details">
-                        <div class="theme-version"><?php echo esc_attr($theme_data->get('Version')); ?></div>
-                        <div class="theme-description"><?php echo esc_attr($theme_data->get('Description')); ?></div>
+                        <div class="theme-version"><?php echo esc_html_e($theme_data->get('Version')); ?></div>
+                        <div class="theme-description"><?php echo esc_html_e($theme_data->get('Description')); ?></div>
                     </div>
                 </div>
             </div>

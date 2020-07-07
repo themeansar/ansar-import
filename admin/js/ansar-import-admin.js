@@ -41,24 +41,33 @@ jQuery(document).ready(function ($) {
     });
 
     jQuery(".btn-preview").click(function () {
+        jQuery(".preview-live-btn").addClass('uk-hidden');
+        jQuery(".import-priview").removeClass('uk-hidden');
         for (var i = 0; i < ansar_theme_object.length; i++) {
             if (ansar_theme_object[i].id === jQuery(this).data('id')) {
                 //console.log(ansar_theme_object[i]);
                 jQuery("#theme_preview").attr('src', ansar_theme_object[i].preview_link);
                 jQuery(".theme-screenshot").attr('src', ansar_theme_object[i].preview_url);
-              //  alert(my_ajax_object.theme_name +'->'+ ansar_theme_object[i].theme_name);
-                if(my_ajax_object.theme_name===ansar_theme_object[i].theme_name){
-                jQuery(".import-priview").attr('data-id',jQuery(this).data('id')); 
-                jQuery(".import-priview").removeClass('uk-hidden');
-                jQuery(".preview-buy").addClass('uk-hidden');
-            }else{
-                jQuery(".import-priview").addClass('uk-hidden');
-                jQuery(".preview-buy").removeClass('uk-hidden');
-                jQuery(".preview-buy").attr('src', ansar_theme_object[i].pro_link);
+                //  alert(my_ajax_object.theme_name +'->'+ ansar_theme_object[i].theme_name);
+                if (my_ajax_object.theme_name === ansar_theme_object[i].theme_name) {
+                    jQuery(".import-priview").attr('data-id', jQuery(this).data('id'));
+                    jQuery(".import-priview").removeClass('uk-hidden');
+                    jQuery(".preview-buy").addClass('uk-hidden');
+                } else {
+                    jQuery(".import-priview").addClass('uk-hidden');
+                    jQuery(".preview-buy").removeClass('uk-hidden');
+                    jQuery(".preview-buy").attr('src', ansar_theme_object[i].pro_link);
+                }
+
             }
-            
-            }
+
         }
+        if (jQuery(this).data('live') === 1) {
+            jQuery(".import-priview").addClass('uk-hidden');
+            jQuery(".preview-live-btn").removeClass('uk-hidden');
+        }
+
+
         UIkit.modal('#AnsardemoPreview').show();
 
     });
@@ -76,7 +85,7 @@ jQuery(document).ready(function ($) {
         jQuery(".wp-full-overlay-main").addClass('p-mobile');
         jQuery(".wp-full-overlay-main").removeClass('p-tablet');
     });
-    
+
     jQuery(".collapse-sidebar").click(function ($) {
 
 
@@ -118,13 +127,8 @@ jQuery(document).ready(function ($) {
         var theme_id = jQuery("#theme_id").val();
         UIkit.modal('#Confirm').hide();
         jQuery(".theme").addClass("focus");
-        
-        jQuery('.btn-import-'+theme_id).addClass('updating-message');
-        jQuery('.btn-import'+theme_id).html("Importing...");
-        // jQuery('#Confirm').modal('hide');
-       // jQuery(".demo-ansar-container").hide();
-       // jQuery("#loader").removeClass("uk-hidden");
-
+        jQuery('.btn-import-' + theme_id).addClass('updating-message');
+        jQuery('.btn-import-' + theme_id).html("Importing...");
 
         var data = {
             'action': 'import_action',
@@ -136,10 +140,10 @@ jQuery(document).ready(function ($) {
             url: my_ajax_object.ajax_url,
             data: data,
             success: function (data) {
-               // jQuery(".demo-ansar-container").hide();
-               jQuery('.btn-import-'+theme_id).addClass("uk-hidden");
-               jQuery('.live-btn-'+theme_id).removeClass("uk-hidden");
-              
+                // jQuery(".demo-ansar-container").hide();
+                jQuery('.btn-import-' + theme_id).addClass("uk-hidden");
+                jQuery('.live-btn-' + theme_id).removeClass("uk-hidden");
+
 
                 console.log(data);
             },
